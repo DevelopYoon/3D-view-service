@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orbis Tour - 캠퍼스 맵</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
+    <style>
+        @import url(https://cdn.jsdelivr.net/gh/innks/NanumSquareRound@master/nanumsquareround.min.css);
+        body {
+            font-family: Nanumsquareround, sans-serif;
+            font-weight: 900;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+        .sidebar {
+            width: 200px;
+            background-color: #0B3C65;
+            color: white;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+        .sidebar a:hover, .sidebar a.active {
+            background-color: #0D4B7F;
+        }
+        .sidebar a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            padding: 10px;
+            margin-bottom: 10px;
+            transition: background-color 0.3s;
+        }
+        .logo {
+            max-width: 120px;
+            height: auto;
+            margin-bottom: 2rem;
+        }
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        nav li {
+            margin-bottom: 1rem;
+        }
+        nav a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: color 0.3s;
+        }
+        nav a:hover, nav a.active {
+            color: white;
+        }
+        .main-content {
+            flex-grow: 1;
+            padding: 2rem;
+            display: flex;
+        }
+        .map-section {
+            flex-grow: 1;
+        }
+        h1 {
+            color: #0B3C65;
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .menu-toggle {
+            display: none;
+        }
+        .map-container {
+            position: relative;
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .map-image {
+            width: 100%;
+            height: auto;
+        }
+        .building-point {
+            position: absolute;
+            width: 1.5rem;
+            height: 1.5rem;
+            background-color: rgba(60, 89, 237, 0.58);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .building-point:hover {
+            width: 2rem;
+            height: 2rem;
+        }
+        .tooltip {
+            position: absolute;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 14px;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+        
+       
+
+        .info-panel {
+            width: 0;
+            background-color: #f0f0f0;
+            padding: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        .info-panel.active {
+            width: 300px;
+            padding: 20px;
+        }
+        .info-panel h2 {
+            margin-top: 0;
+        }
+        .info-panel p {
+            margin-bottom: 20px;
+        }
+        .info-panel button {
+            background-color: #0B3C65;
+            color: white;
+            border-radius: 4px;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .info-panel button:hover {
+            background-color: #0D4B7F;
+        }
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            .sidebar {
+                width: 100%;
+                padding: 1rem;
+            }
+            .menu-toggle {
+                display: block;
+                font-size: 1.5rem;
+                background: none;
+                border: none;
+                color: white;
+                cursor: pointer;
+                margin-bottom: 1rem;
+            }
+            nav {
+                display: none;
+            }
+            nav.active {
+                display: block;
+            }
+            .main-content {
+                flex-direction: column;
+            }
+            .info-panel.active {
+                width: 100%;
+            }
+            .building-point {
+           
+            width: 0.5rem;
+            height: 0.5rem;
+            
+        }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <a href="./main">
+                <img src="../static/img/logo_white.png" alt="Orbis Logo" class="logo">
+            </a>
+            <button class="menu-toggle" aria-label="Toggle menu">☰ Menu</button>
+            <nav id="main-nav">
+                <ul>
+                    <li><a href="./main">HOME</a></li>
+                    <li><a href="./about">ABOUT US</a></li>
+                    <li><a href="./list" class="active">TOUR</a></li>
+                    <li><a href="./contact" >INFO</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <div class="map-section">
+                <h1>단국대학교 캠퍼스 투어</h1>
+                <h3>모바일 환경은 가로로 보는 것을 추천드립니다.</h3>
+                <div class="map-container">
+                    <div id="tooltip" class="tooltip"></div>
+                    <img src="../static/img/dku.jpg" alt="단국대학교 캠퍼스 지도" class="map-image">
+                    <div id="building-points"></div>
+                </div>
+            </div>
+            <div id="info-panel" class="info-panel">
+                <h2 id="building-name"></h2>
+                <p id="building-info"></p>
+                <button id="more-info">3D 투어 시작하기</button>
+            </div>
+        </main>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+    <script>
+        document.querySelector('.menu-toggle').addEventListener('click', function() {
+            document.getElementById('main-nav').classList.toggle('active');
+        });
+
+        const buildings = [
+            { name: '생활관(진리관)', x: 78, y: 7, href: '3d_jinri', info: '학생들의 주거 공간으로 사용되는 건물입니다.'},
+            { name: '생활관(웅비홀)', x: 78, y: 13, href: '3d_ung', info: '학생들의 주거 공간으로 사용되는 건물입니다.' },
+            { name: '생활관(집현재)', x: 77, y: 22, href: '3d_jip', info: '학생들의 주거 공간으로 사용되는 건물입니다.' },
+            { name: '무용관', x: 75, y: 14, href: '3d_dance', info: '무용 전공 학생들의 실습 공간입니다.' },
+            { name: '체육관·공연예술센터', x: 12, y: 25, href: '3d_gym', info: '체육 활동과 공연 예술을 위한 복합 시설입니다.' },
+            { name: '학군단', x: 25, y: 22, href: '3d_RT', info: '학생군사교육단이 위치한 건물입니다.' },
+            { name: '콘서트홀', x: 41, y: 30, href: '3d_concert', info: '다양한 공연과 행사가 열리는 공간입니다.' },
+            { name: '단국역사관', x: 37, y: 31.5, href: '/3d_historyHall', info: '단국대학교의 역사를 전시하는 공간입니다.' },
+            { name: '미술관', x: 25, y: 32, href: '3d_art', info: '다양한 미술 작품을 전시하는 공간입니다.' },
+            { name: '연민기념관', x: 55, y: 23, href: '/3d_memorialHall', info: '단국대학교 설립자를 기념하는 건물입니다.' },
+            { name: '난파음악관', x: 45, y: 27, href: '3d_nanpa', info: '음악 전공 학생들의 실습 공간입니다.' },
+            { name: '석주선 기념 박물관', x: 55, y: 34, href: '/3d_museum', info: '단국대학교 석주선기념박물관은 1967년 개교 20주년을 기념해 중앙박물관으로 개관한 이래 우리의 역사와 문화를 발굴하고 보급하는데 노력해 왔습니다. 개관 직후부터 연차적으로 유적조사를 진행하여 1978년에 단양신라적성비(국보 제198호), 1979년에 충주고구려비(국보 제205호)를 비롯해 수많은 문화재를 발견·조사하였습니다. 더불어 사천 구평리, 몽촌토성, 양양 진전사지 등 수많은 유적에 대한 발굴조사를 진행해 한국 역사학계에 커다란 공헌을 하였습니다. 1981년에는 고 난사 석주선박사께서 평생 수집한 3,365점의 유물을 기증해주셔서 석주선기념민속박물관이 개관될 수 있는 토대가 마련되었습니다. 민속박물관에서는 기증 유물에 대한 정리와 더불어 어린이 복식과 출토복식에 대한 자료의 수합과 연구활동을 통해 전통복식 분야에서는 독보적인 위상을 구축하였습니다. 1999년 3월 중앙박물관과 석주선기념민속박물관이 석주선기념박물관으로 통합되면서, 고고와 복식분야를 모두 망라하는 종합박물관으로서의 위상을 갖추게 되었습니다. 현재 우리 박물관에서는 약 4만점의 유물을 소장하고 있는데, 이 중에서 안중근유묵(보물 제569-21)과 덕온공주 당의(중요민속문화재 제1호) 등 11건 100점의 유물이 중요민속문화재로 지정되어 있습니다. 우리 박물관은 현재 유물의 특성에 맞는 전시가 이루어질 수 있도록 5개의 전시 공간, 유물의 안전한 관리를 위한 항온항습시설과 자동소화설비 시설을 갖춘 첨단 수장고도 마련하는 등 대학박물관으로서는 최고의 시설을 갖추고 있습니다. 최근에는 박물관 소장품에 대한 데이터베이스 구축과 공개, 지역 사회와의 소통을 위한 시민강좌의 개설, 어린이 패션쇼의 개최 등을 통해 사회교육과 문화보급에 노력하고 있으며, 구글코리아와의 연계를 통해 한국문화의 우수성을 세계에 알리는데 주력하고 있습니다.' },
+            { name: '제1공학관', x: 72, y: 59, href: '/3d_engineering1', info: '공학 계열 학과들이 위치한 건물입니다.' },
+            { name: '제2공학관', x: 68, y: 54.5, href: '/3d_engineering2', info: '공학 계열 학과들이 위치한 건물입니다.' },
+            { name: '제3공학관', x: 64.5, y: 49, href: '/3d_engineering3', info: '공학 계열 학과들이 위치한 건물입니다.' },
+            { name: '건축대학실습동', x: 75.5, y: 43.2, href: '3d_multi', info: '건축학과 학생들의 실습 공간입니다.' },
+            { name: '종합실험동', x: 77.5, y: 48, href: '3d_multi', info: '다양한 실험을 위한 종합 실험실이 위치한 건물입니다.' },
+            { name: '주차빌딩', x: 81.5, y: 53, href: '/3d_parking', info: '다층 주차 시설입니다.' },
+            { name: '글로벌 산학협력관', x: 90, y: 76, href: '3d_glocal', info: '산학협력을 위한 시설이 위치한 건물입니다.' },
+            { name: '복지관·대학원동', x: 80.5, y: 75, href: '/3d_law', info: '학생 복지 시설과 대학원이 위치한 건물입니다.' },
+            { name: '국제관', x: 69, y: 37, href: '3d_international', info: '국제 교류를 위한 시설이 위치한 건물입니다.' },
+            { name: '사회과학관', x: 75, y: 64, href: '3d_socialscience', info: '사회과학 계열 학과들이 위치한 건물입니다.' },
+            { name: '인문관', x: 35, y: 61, href: '3d_inmun', info: '인문학 계열 학과들이 위치한 건물입니다.' },
+            { name: '상경관', x: 33, y: 66.5, href: '3d_inmun', info: '경제, 경영 계열 학과들이 위치한 건물입니다.' },
+            { name: '사범관', x: 31, y: 73, href: '3d_inmun', info: '사범대학 학과들이 위치한 건물입니다.' },
+            { name: '미디어센터', x: 49.5, y: 71, href: '/3d_tour', info: '미디어 관련 시설이 위치한 건물입니다.' },
+            { name: '소프트웨어 ICT관', x: 52, y: 77, href: '/3d_tour', info: '소프트웨어와 ICT 관련 학과들이 위치한 건물입니다.' },
+            { name: '폭포공원', x: 19, y: 51, href: '3d_lake', info: '캠퍼스 내 휴식 공간인 폭포공원입니다.' },
+            { name: '테니스장', x: 32, y: 48, href: '3d_tennis', info: '테니스를 즐길 수 있는 운동 시설입니다.' },
+            { name: '대운동장', x: 6, y: 40, href: '/3d_playground', info: '다양한 운동과 행사가 열리는 대운동장입니다.' },
+            { name: '정문', x: 67, y: 88, href: '/3d_tour', info: '단국대학교의 정문입니다.' },
+            { name: '노천마당', x: 61, y: 45, href: '/3d_nochun', info: '야외 행사와 학생들의 휴식 공간으로 사용되는 광장입니다.' },
+            { name: '들샘길', x: 70, y: 66, href: '3d_pond', info: '캠퍼스 내 주요 보행로 중 하나입니다.' },
+            { name: '법학관,대학원동', x: 39, y: 52, href: '3d_law', info: '법학대학원과 일반대학원이 위치한 건물입니다.' },
+            { name:  '혜당관(학생회관)', x: 50, y: 47, href: '3d_hyedang', info: '학생 자치 활동과 편의 시설이 위치한 건물입니다.' },
+            { name: '도서관', x: 57, y: 58, href: '3d_library', info: '중앙도서관으로 다양한 학습 자료와 시설을 제공합니다.' },
+            { name: '범정관', x: 64, y: 68, href: '/3d_bumjung', info: '행정 업무와 강의실이 위치한 건물입니다.' },
+            { name: '곰상', x: 45, y: 40, href: '3d_bear', info: '단국대학교의 상징인 곰 동상이 위치한 곳입니다.' },
+            { name: '평화의 광장', x: 48, y: 40, href: '3d_peace', info: '학생들의 집회와 행사가 열리는 중앙 광장입니다.' },
+        ];
+
+        const mapContainer = document.querySelector('.map-container');
+        const buildingPointsContainer = document.getElementById('building-points');
+        const tooltip = document.getElementById('tooltip');
+        const infoPanel = document.getElementById('info-panel');
+        const buildingNameElement = document.getElementById('building-name');
+        const buildingInfoElement = document.getElementById('building-info');
+        const moreInfoButton = document.getElementById('more-info');
+
+        function createBuildingPoints() {
+            buildings.forEach((building, index) => {
+                const point = document.createElement('div');
+                point.className = 'building-point';
+                point.style.left = `${building.x}%`;
+                point.style.top = `${building.y}%`;
+                point.addEventListener('mouseenter', (e) => showTooltip(e, building.name));
+                point.addEventListener('mouseleave', hideTooltip);
+                point.addEventListener('click', () => showInfoPanel(building));
+                buildingPointsContainer.appendChild(point);
+            });
+        }
+
+        function showTooltip(event, buildingName) {
+            tooltip.textContent = buildingName;
+            // tooltip.style.left = `${event.pageX}px`;
+            // tooltip.style.top = `${event.pageY}px`;
+            tooltip.style.left = `${event.pageX}`;
+            tooltip.style.top = `${event.pageY}`;
+
+            tooltip.style.opacity = '1';
+        }
+
+        function hideTooltip() {
+            tooltip.style.opacity = '0';
+        }
+
+        function showInfoPanel(building) {
+            buildingNameElement.textContent = building.name;
+            buildingInfoElement.textContent = building.info;
+            moreInfoButton.onclick = () => window.location.href = building.href;
+            infoPanel.classList.add('active');
+        }
+
+        function adjustPointPositions() {
+            const mapRect = mapContainer.getBoundingClientRect();
+            const points = document.querySelectorAll('.building-point');
+            points.forEach((point, index) => {
+                const building = buildings[index];
+                point.style.left = `${(building.x / 100) * mapRect.width}px`;
+                point.style.top = `${(building.y / 100) * mapRect.height}px`;
+            });
+        }
+
+        createBuildingPoints();
+        window.addEventListener('load', adjustPointPositions);
+        window.addEventListener('resize', adjustPointPositions);
+
+        $(document).ready(function(){
+            function initSlider() {
+                if (window.innerWidth < 768) {
+                    if (!$('#category-container').hasClass('slick-initialized')) {
+                        $('#category-container').slick({
+                            dots: true,
+                            infinite: true,
+                            speed: 500,
+                            slidesToShow: 1,
+                            slidesToScroll: 1,
+                            autoplay: true,
+                            autoplaySpeed: 3000,
+                            cssEase: "linear",
+                            swipeToSlide: true
+                        });
+                    }
+                } else {
+                    if ($('#category-container').hasClass('slick-initialized')) {
+                        $('#category-container').slick('unslick');
+                    }
+                }
+            }
+
+            initSlider();
+            $(window).resize(initSlider);
+        });
+/////////////////////////////////////////////////////////////////////////////////404표시
+        document.addEventListener("DOMContentLoaded", function () {
+    const buildingPointsContainer = document.getElementById("building-points");
+
+    buildings.forEach(building => {
+        const point = document.createElement("div");
+        point.classList.add("building-point");
+        point.style.left = `${building.x}%`;
+        point.style.top = `${building.y}%`;
+
+        // href가 '404'인 경우 스타일 변경
+        if (building.href === '404') {
+            point.style.backgroundColor = "red";
+        }
+
+        point.addEventListener("click", function () {
+            if (building.href !== '404') {
+                window.location.href = building.href;
+            } else {
+                alert("이 건물의 정보는 아직 준비 중입니다.");
+            }
+        });
+
+        point.addEventListener("mouseenter", function () {
+            const tooltip = document.getElementById("tooltip");
+            tooltip.textContent = building.name;
+            tooltip.style.left = `${point.offsetLeft}px`;
+            tooltip.style.top = `${point.offsetTop - 30}px`;
+            tooltip.style.opacity = 1;
+        });
+
+        point.addEventListener("mouseleave", function () {
+            const tooltip = document.getElementById("tooltip");
+            tooltip.style.opacity = 0;
+        });
+
+        buildingPointsContainer.appendChild(point);
+    });
+});
+    </script>
+</body>
+</html>

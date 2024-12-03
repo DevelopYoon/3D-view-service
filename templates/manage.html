@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>단국대 캡스톤 디자인</title>
+    <style>
+        /* 전역 스타일 */
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+        }
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        /* 헤더 스타일 */
+        header {
+            position: sticky;
+            top: 0;
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #e5e5e5;
+            z-index: 1000;
+        }
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 60px;
+        }
+        nav a {
+            color: #333;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            margin-left: 20px;
+        }
+        /* 섹션 스타일 */
+        section {
+            padding: 60px 0;
+        }
+        h1, h2, h3 {
+            margin-bottom: 20px;
+        }
+        .hero {
+            background-image: url('../static/img/i.png');
+            /* Make sure the image covers the entire background */
+           
+            background-size: cover;
+            /* Center the background image */
+            background-position: center;
+            
+            /* Ensure the background doesn't repeat */
+            background-repeat: no-repeat;
+            color: #fff;
+            text-align: center;
+            padding: 100px 0;
+        }
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        .hero p {
+            font-size: 18px;
+            max-width: 600px;
+            margin: 0 auto 30px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #fff;
+            color: #000;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .btn:hover {
+            background-color: #7e7e7e;
+        }
+        /* 특징 카드 스타일 */
+        .features {
+            background-color: #f5f5f5;
+        }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        .feature-card {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        .feature-card:hover {
+            transform: scale(1.05);
+        }
+        .feature-icon {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+        /* 인터랙티브 특징 스타일 */
+        .interactive-features {
+            display: flex;
+            gap: 20px;
+            height: 400px;
+        }
+        .interactive-card {
+            flex: 1;
+            background-color: #f5f5f5;
+            border-radius: 10px;
+            padding: 20px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: flex 0.3s, transform 0.3s;
+        }
+        .interactive-card:hover {
+            flex: 2;
+        }
+        .interactive-content {
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .interactive-card:hover .interactive-content {
+            opacity: 1;
+        }
+        /* 갤러리 스타일 */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        .gallery-item {
+            position: relative;
+            aspect-ratio: 16 / 9;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+        /* CTA 섹션 스타일 */
+        .cta {
+            background-color: #154b85;
+            color: #fff;
+            text-align: center;
+        }
+        /* 푸터 스타일 */
+        footer {
+            background-color: #f5f5f5;
+            padding: 20px 0;
+            text-align: center;
+        }
+        /* 반응형 스타일 */
+        @media (max-width: 768px) {
+            .interactive-features {
+                flex-direction: column;
+                height: auto;
+            }
+            .interactive-card {
+                height: 200px;
+            }
+            .interactive-card:hover {
+                flex: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M3 21H21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 21V7L13 3V21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M19 21V11L13 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M9 9V9.01" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M9 12V12.01" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M9 15V15.01" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M9 18V18.01" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span style="font-weight: bold; margin-left: 8px;">DKU 윤태호</span>
+            </div>
+            <div>
+                <a href="#features">특징</a>
+                <a href="#interactive-features">인터랙티브 특징</a>
+                <a href="#gallery">갤러리</a>
+                <a href="#contact">문의</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h1>캡스톤 디자인</h1>
+                <p>가상공간으로 보여주는 시설물</p>
+                <a href="#features" class="btn">체험하기 →</a>
+            </div>
+        </section>
+
+        <section id="interactive-features">
+            <div class="container">
+                <h2>서비스 특징</h2>
+                <div class="interactive-features">
+                    <div class="interactive-card">
+                        <h3>🏢 편리성</h3>
+                        <div class="interactive-content">
+                            <p>3D 모델을 사용하면 실제 공간의 구조와 배치를 보다 직관적으로 파악할 수 있어 방문 전 미리 환경을 이해하는 데 매우 편리합니다. 
+                                이는 병원의 복잡한 동선이나 학교의 교실 배치를 쉽게 알아볼 수 있게 하며, 관광 명소의 주요 포인트를 미리 탐험할 수 있게 도와줍니다.</p>
+                        </div>
+                    </div>
+                    <div class="interactive-card">
+                        <h3>🔧 효율성</h3>
+                        <div class="interactive-content">
+                            <p>병원이나 학교의 시설을 3D로 시각화하면 관계자들 간의 의사소통이 더 원활해집니다. 
+                                또한, 관광객들은 명소의 3D 이미지를 보고 방문 계획을 더 효율적으로 세울 수 있으며, 
+                                병원 방문자나 학교 학부모들도 시설에 대해 명확한 정보를 바탕으로 결정을 내릴 수 있습니다.</p>
+                        </div>
+                    </div>
+                    <div class="interactive-card">
+                        <h3>🌿 시간과 비용 절감</h3>
+                        <div class="interactive-content">
+                            <p>3D로 공간을 탐색하면 물리적 방문 없이도 원하는 정보를 얻을 수 있어 시간과 비용을 절감할 수 있습니다. 
+                                이는 특히 병원에서 사전 탐색을 통해 방문할 장소를 미리 파악할 수 있게 하여 대기 시간과 혼란을 줄이고, 
+                                관광객은 여행 중 불필요한 동선을 줄일 수 있습니다.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="features" class="features">
+            <div class="container">
+                <h2>주요 기관</h2>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">👥</div>
+                        <h3>교육기관</h3>
+                        <p>최신 설비와 편의시설을 갖춘 프리미엄 공간으로, 사용자의 편의를 최우선으로 고려했습니다.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🛡️</div>
+                        <h3>의료시설</h3>
+                        <p>24시간 보안 시스템과 최신 기술을 활용한 출입 관리로 안전한 환경을 제공합니다.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">⚡</div>
+                        <h3>관광시설</h3>
+                        <p>친환경 설계와 스마트 에너지 관리 시스템으로 에너지 소비를 최소화합니다.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        
+
+        <!-- <section id="gallery">
+            <div class="container">
+                <h2>갤러리</h2>
+                <div class="gallery-grid">
+                    <div class="gallery-item">
+                        <img src="/placeholder.svg?height=300&width=400&text=Building+Image+1" alt="Building Image 1">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="/placeholder.svg?height=300&width=400&text=Building+Image+2" alt="Building Image 2">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="/placeholder.svg?height=300&width=400&text=Building+Image+3" alt="Building Image 3">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="/placeholder.svg?height=300&width=400&text=Building+Image+4" alt="Building Image 4">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="/placeholder.svg?height=300&width=400&text=Building+Image+5" alt="Building Image 5">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="/placeholder.svg?height=300&width=400&text=Building+Image+6" alt="Building Image 6">
+                    </div>
+                </div>
+            </div>
+        </section> -->
+
+        <section id="contact" class="cta">
+            <div class="container">
+                <h2>미래를 향한 당신의 새로운 공간</h2>
+                <p>캡스톤디자인: 오르비스조, 지금 바로 문의하세요.</p>
+                <a href="#" class="btn">팀소개 →</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>2024 단국대학교 2학기 캡스톤 디자인 오르비스조</p>
+            <nav>
+                <a href="#">이용약관</a>
+                <a href="#">개인정보처리방침</a>
+                <a href="#">연락처</a>
+            </nav>
+        </div>
+    </footer>
+</body>
+</html>

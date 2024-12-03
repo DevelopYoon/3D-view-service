@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orbis Tour</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
+    <style>
+        @import url(https://cdn.jsdelivr.net/gh/innks/NanumSquareRound@master/nanumsquareround.min.css);
+        body {
+            font-family: Nanumsquareround, sans-serif;
+            font-weight: 900;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+           
+            
+        }
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+        .sidebar {
+            width: 200px;
+            background-color: #0B3C65;
+            color: white;
+            padding: 20px;
+            transition: all 0.3s ease;
+
+        }
+        .sidebar a:hover, .sidebar a.active {
+        background-color: #0D4B7F;
+        }
+        .sidebar a {
+        display: block;
+        color: white;
+        text-decoration: none;
+        padding: 10px;
+        margin-bottom: 10px;
+        transition: background-color 0.3s;
+        }
+        .logo {
+            max-width: 120px;
+            height: auto;
+            margin-bottom: 2rem;
+        }
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        nav li {
+            margin-bottom: 1rem;
+        }
+        nav a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: color 0.3s;
+        }
+        nav a:hover, nav a.active {
+            color: white;
+        }
+        
+        .main-content {
+            flex-grow: 1;
+            padding: 2rem;
+        }
+        h1 {
+            color: #0B3C65;
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .cta-button {
+            background-color: white;
+            color: #03243f;
+            padding: 0.75rem 1.5rem;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 0.25rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .cta-button:hover {
+            background-color: rgba(255, 255, 255, 0.9);
+        }
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        .category-card {
+            background-color: white;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            width: 70%;
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s;
+            margin-left: 15%;
+        }
+        .category-card:hover {
+            transform: scale(1.05);
+        }
+        .category-image {
+            height: 420px;
+            background-size: cover;
+            background-position: center;
+        }
+        .category-info {
+            padding: 1rem;
+        }
+        .category-title {
+            font-size: 1.5rem;
+            color: #03243f;
+            margin: 0 0 0.5rem;
+        }
+        .category-underline {
+            width: 100%;
+            height: 2px;
+            background-color: #03243f;
+        }
+        .menu-toggle {
+            display: none;
+        }
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            .sidebar {
+                width: 100%;
+                padding: 1rem;
+            }
+            .menu-toggle {
+                display: block;
+                font-size: 1.5rem;
+                background: none;
+                border: none;
+                color: white;
+                cursor: pointer;
+                margin-bottom: 1rem;
+            }
+            nav {
+                display: none;
+            }
+            nav.active {
+                display: block;
+            }
+            .category-grid {
+                grid-template-columns: 1fr;
+            }
+            .category-card {
+                margin-left: 0; /* 모바일에서는 여백 제거 */
+                width: 100%; /* 모바일에서는 카드가 화면 전체를 차지하도록 */
+            }
+
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <a href="./main">
+                <img src="../static/img/logo_white.png" alt="Orbis Logo" class="logo">
+            </a>
+            <button class="menu-toggle" aria-label="Toggle menu">☰ Menu</button>
+            <nav id="main-nav">
+                <ul>
+                    <li><a href="./main">HOME</a></li>
+                    <li><a href="./about" >ABOUT US</a></li>
+                    <li><a href="./list" class="active">TOUR</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <h1>체험하고 싶은 기관 종류를 골라주세요.</h1>
+            <!-- <button class="cta-button" onclick="window.location.href='next.html'">목록</button> -->
+
+            <div class="category-grid" id="category-container">
+                <div class="category-card">
+                    <a href="./list_campus">
+                        <div class="category-image" style="background-image: url('../static/img/school.jpg');"></div>
+                    </a>
+                    <div class="category-info">
+                        <h2 class="category-title">Campus</h2>
+                        <div class="category-underline"></div>
+                    </div>
+                </div>
+                <div class="category-card">
+                    <a href="./list_public">
+                        <div class="category-image" style="background-image: url('../static/img/park.jpg'); "></div>
+                    </a>
+                    <div class="category-info">
+                        <h2 class="category-title">Public institution(사용x)</h2>
+                        <div class="category-underline"></div>
+                    </div>
+                </div>
+                <div class="category-card">
+                    <a href="./list_attraction">
+                        <div class="category-image" style="background-image: url('../static/img/gung.jpg');"></div>
+                    </a>
+                    <div class="category-info">
+                        <h2 class="category-title">Attraction(사용x)</h2>
+                        <div class="category-underline"></div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+    <script>
+        document.querySelector('.menu-toggle').addEventListener('click', function() {
+            document.getElementById('main-nav').classList.toggle('active');
+        });
+
+        $(document).ready(function(){
+            function initSlider() {
+                if (window.innerWidth < 768) {
+                    if (!$('#category-container').hasClass('slick-initialized')) {
+                        $('#category-container').slick({
+                            dots: true,
+                            infinite: true,
+                            speed: 500,
+                            slidesToShow: 1,
+                            slidesToScroll: 1,
+                            autoplay: true,
+                            autoplaySpeed: 3000,
+                            cssEase: "linear",
+                            swipeToSlide: true
+                        });
+                    }
+                } else {
+                    if ($('#category-container').hasClass('slick-initialized')) {
+                        $('#category-container').slick('unslick');
+                    }
+                }
+            }
+
+            initSlider();
+            $(window).resize(initSlider);
+        });
+    </script>
+</body>
+</html>

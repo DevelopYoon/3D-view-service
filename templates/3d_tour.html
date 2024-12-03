@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Project Title</title>
+<meta charset="utf-8">
+<meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui" />
+<style> 
+  @-ms-viewport { width: device-width; } 
+  body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+  }
+  #tourContainer {
+    width: 100%;
+    height: 100%;
+    position: relative;
+  }
+  #pano {
+    width: 100%;
+    height: 100%;
+  }
+  #backButton {
+    display: none;
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 100;
+    padding: 10px 20px;
+    background-color: #333;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  @media (min-width: 768px) {
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #f0f0f0;
+    }
+    #tourContainer {
+      width: 80%;
+      height: 80%;
+      max-width: 1200px;
+      max-height: 800px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    #backButton {
+      display: block;
+    }
+  }
+</style>
+<link rel="stylesheet" href="../static/vendor/reset.min.css">
+<link rel="stylesheet" href="../static/style.css">
+</head>
+<body class="multiple-scenes view-control-buttons">
+
+<div id="tourContainer">
+  <div id="pano"></div>
+
+  <button id="backButton" onclick="history.back()">Back</button>
+  
+  <div id="sceneList">
+    <ul class="scenes">
+      <a href="javascript:void(0)" class="scene" data-id="0-start">
+        <li class="text">정문</li>
+      </a>
+      <a href="javascript:void(0)" class="scene" data-id="1-enter">
+        <li class="text">초입</li>
+      </a>
+      <a href="javascript:void(0)" class="scene" data-id="2-ict-parking">
+        <li class="text">소프트웨어 ICT관 </li>
+      </a>
+      <a href="javascript:void(0)" class="scene" data-id="3-sw_gs">
+        <li class="text">소프트웨어_GS</li>
+      </a>
+      <a href="javascript:void(0)" class="scene" data-id="4-ict-media-center">
+        <li class="text">ICT-미디어센터</li>
+      </a>
+      <a href="javascript:void(0)" class="scene" data-id="5-sw_b1_hall-enter">
+        <li class="text">SW ICT관 지하 입구</li>
+      </a>
+      <a href="javascript:void(0)" class="scene" data-id="6-sw_b1_hall">
+        <li class="text">SW ICT관 지하 복도</li>
+      </a>
+      <a href="javascript:void(0)" class="scene" data-id="7-sw_1_back-hall">
+        <li class="text">SW ICT관 1층 복도</li>
+      </a>
+      <a href="javascript:void(0)" class="scene" data-id="8-sw_1_enter">
+        <li class="text">SW ICT관 1층 입구</li>
+      </a>
+      <a href="javascript:void(0)" class="scene" data-id="9-sw_2_hall">
+        <li class="text">SW ICT관 2층 복도</li>
+      </a>
+      <a href="javascript:void(0)" class="scene" data-id="10-sw_2_side-hall">
+        <li class="text">SW ICT관 2층 측면 복도</li>
+      </a>
+      <a href="javascript:void(0)" class="scene" data-id="11-sw_2_end-hall">
+        <li class="text">SW ICT관 2층 끝 복도</li>
+      </a>
+      <a href="javascript:void(0)" class="scene" data-id="12-sw_2_staracademy">
+        <li class="text">SW ICT관 starAcademy</li>
+      </a>
+      <a href="javascript:void(0)" class="scene" data-id="13-sw_2_seminar">
+        <li class="text">SW ICT관 세미나실</li>
+      </a>
+      <a href="javascript:void(0)" class="scene" data-id="14-media_1_enter">
+        <li class="text">미디어센터 1층 입구</li>
+      </a>
+      <a href="javascript:void(0)" class="scene" data-id="15-media_1_hall">
+        <li class="text">미디어센터 1층 복도</li>
+      </a>
+      <a href="javascript:void(0)" class="scene" data-id="16-media_2_stair">
+        <li class="text">미디어센터 2층 계단</li>
+      </a>
+      <a href="javascript:void(0)" class="scene" data-id="17-media_2_hall">
+        <li class="text">미디어센터 2층 복도</li>
+      </a>
+    </ul>
+  </div>
+
+  <div id="titleBar">
+    <h1 class="sceneName"></h1>
+  </div>
+
+  <a href="javascript:void(0)" id="autorotateToggle">
+    <img class="icon off" src="../static/img/play.png">
+    <img class="icon on" src="../static/img/pause.png">
+  </a>
+
+  <a href="javascript:void(0)" id="fullscreenToggle">
+    <img class="icon off" src="../static/img/fullscreen.png">
+    <img class="icon on" src="../static/img/windowed.png">
+  </a>
+
+  <a href="javascript:void(0)" id="sceneListToggle">
+    <img class="icon off" src="../static/img/expand.png">
+    <img class="icon on" src="../static/img/collapse.png">
+  </a>
+
+  <a href="javascript:void(0)" id="viewUp" class="viewControlButton viewControlButton-1">
+    <img class="icon" src="../static/img/up.png">
+  </a>
+  <a href="javascript:void(0)" id="viewDown" class="viewControlButton viewControlButton-2">
+    <img class="icon" src="../static/img/down.png">
+  </a>
+  <a href="javascript:void(0)" id="viewLeft" class="viewControlButton viewControlButton-3">
+    <img class="icon" src="../static/img/left.png">
+  </a>
+  <a href="javascript:void(0)" id="viewRight" class="viewControlButton viewControlButton-4">
+    <img class="icon" src="../static/img/right.png">
+  </a>
+  <a href="javascript:void(0)" id="viewIn" class="viewControlButton viewControlButton-5">
+    <img class="icon" src="../static/img/plus.png">
+  </a>
+  <a href="javascript:void(0)" id="viewOut" class="viewControlButton viewControlButton-6">
+    <img class="icon" src="../static/img/minus.png">
+  </a>
+</div>
+
+<script src="../static/vendor/screenfull.min.js" ></script>
+<script src="../static/vendor/bowser.min.js" ></script>
+<script src="../static/vendor/marzipano.js" ></script>
+<script src="../static/marzipano.js"></script>
+<script src="../static/data/data.js"></script>
+<script src="../static/index.js"></script>
+
+</body>
+</html>

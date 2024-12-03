@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us  Orbis</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url(https://cdn.jsdelivr.net/gh/innks/NanumSquareRound@master/nanumsquareround.min.css);
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+      body {
+    font-family: Nanumsquareround, sans-serif;
+    min-height: 100vh;
+    background-color: rgba(240, 240, 240, 0.8); /* 50% 투명한 밝은 회색 */
+
+    color: #34495e; /* 짙은 파란색 텍스트 */
+}
+        
+        .container {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        
+    .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 2.5rem; /* 패딩을 늘려 공간감 추가 */
+    background-color: #0B3C65; /* 투명도 추가 */
+    backdrop-filter: blur(10px); /* 블러 효과 추가 */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* 그림자 강화 */
+    border-bottom: 2px solid rgba(255, 255, 255, 0.15); /* 하단 경계선 */
+}
+
+
+
+        .logo {
+            max-width: 120px;
+            height: auto;
+        }
+        
+        nav ul {
+            list-style-type: none;
+            display: flex;
+            gap: 2rem;
+        }
+        
+        nav a {
+            color: #ffffff; /* 흰색 텍스트 */
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 400;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: #f5f5f5;
+            transition: width 0.3s ease;
+        }
+        
+        nav a:hover, nav a.active {
+            color: #dfe6e9; /* 연한 흰색 */
+        }
+        
+        nav a:hover::after, nav a.active::after {
+            width: 100%;
+        }
+
+        /* 슬라이드쇼 */
+        .slideshow-container {
+            position: relative;
+            width: 100%;
+            height: 500px;
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+
+        .slides {
+            display: none;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            border-radius: 10px;
+        }
+
+        .fade {
+            animation: fadeEffect 2s;
+        }
+
+        @keyframes fadeEffect {
+            from { opacity: .4 } 
+            to { opacity: 1 }
+        }
+
+     .content {
+    flex-grow: 1;
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: rgba(255, 255, 255, 0.8); /* 연한 흰색 배경 */
+    animation: fadeInUp 1s ease;
+}
+        
+     h1, h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: #34495e; /* 짙은 파란색 텍스트 */
+}
+        p {
+            font-size: 1.2rem;
+            color: #555; /* 다소 어두운 텍스트 */
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+       
+        .address-section {
+            margin-bottom: 3rem;
+            padding: 1rem;
+            border-radius: 5px;
+            background-color: white; /* 부드러운 밝은 색 */
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .map {
+            width: 100%;
+            height: 400px;
+            border: none;
+            border-radius: 10px;
+        }
+        
+       .facilities {
+    background: #ffffff; /* 카드 색상: 흰색 */
+    border-radius: 10px;
+    padding: 1.5rem;
+    margin-top: 2rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 가벼운 그림자 효과 */
+    transition: transform 0.3s ease;
+}
+
+        .facilities:hover {
+            transform: scale(1.02); /* 약간의 확대 효과 */
+        }
+
+     .facilities h3 {
+    text-align: center;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: #34495e; /* 짙은 파란색 */
+}
+
+      .facilities ul {
+    list-style-type: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+    padding: 0;
+}
+
+.facilities li {
+    background: #f9f9f9; /* 연한 회색 */
+    border-radius: 10px;
+    padding: 1rem;
+    text-align: center;
+    font-size: 1rem;
+    color: #34495e; /* 짙은 파란색 */
+    font-weight: bold;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 가벼운 그림자 */
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.facilities li:hover {
+    background: rgba(255, 255, 255, 0.8); /* 카드 호버 시 연하게 */
+    transform: scale(1.05); /* 확대 효과 */
+}
+
+.footer {
+    background-color: #0B3C65; /* 투명도를 없애고 색상을 더 진하게 변경 */
+     color: rgba(255, 255, 255, 0.6);
+    padding: 2rem;
+    text-align: center;
+}
+
+        
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            margin: 0 1rem;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        /* 호버 효과 추가 */
+        .footer-links a:hover {
+            color: #f5f5f5;
+            transform: scale(1.1);
+        }
+        
+.footer-info {
+    margin-top: 1.1rem;
+    
+    font-size: 1.1rem;
+    text-shadow: none; /* 혹시라도 그림자가 설정되어 있다면 제거 */
+}
+
+
+
+
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                align-items: flex-start;
+                margin-top: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <a href="./main">
+                <img src="../static/img/logo_3.png" alt="Orbis Logo" class="logo">
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="./main">HOME</a></li>
+                    <li><a href="./about">ABOUT US</a></li>
+                    <li><a href="./list">TOUR</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <!-- 슬라이드쇼 -->
+        <div class="slideshow-container">
+            <div class="slides fade" style="background-image: url('../static/img/school.jpg');"></div>
+            <div class="slides fade" style="background-image: url('../static/img/park.jpg');"></div>
+            <div class="slides fade" style="background-image: url('../static/img/museum.jpg');"></div>
+        </div>
+        
+        <main class="content">
+            <section class="address-section">
+                <h2>ADDRESS</h2>
+                <p>경기도 용인시 수지구<br>죽전로 152 소프트웨어관</p>
+                <iframe class="map" src="https://maps.google.com/maps?q=단국대학교 죽전캠퍼스&t=&z=13&ie=UTF8&iwloc=&output=embed" allowfullscreen></iframe>
+            </section>
+
+            <section class="info-section">
+                <h2>INFO</h2>
+                <p>대학교는 고등 교육 기관으로 다양한 학문 분야에서 학사, 석사, 박사 학위를 제공합니다. 학생들이 연구와 학문적 탐구를 통해 사회에서 필요한 지식과 기술을 습득할 수 있도록 지원합니다.</p>
+                <p>단국대학교는 "창의적 융합인재 양성, 글로벌 리더 양성"을 목표로, 혁신적 교육과 연구를 통해 미래 사회의 변화를 주도할 수 있는 인재를 양성하고자 합니다.</p>
+                
+                <div class="facilities">
+                    <h3>단국대 시설 목록:</h3>
+                    <ul>
+                        <li>정문</li>
+                        <li>범정관(대학본부)</li>
+                        <li>퇴계기념중앙도서관</li>
+                        <li>혜당관(학생회관)</li>
+                        <li>소프트웨어 ICT관</li>
+                        <li>미디어센터</li>
+                        <li>사범관</li>
+                        <li>상경관</li>
+                        <li>인문관</li>
+                        <li>폭포공원</li>
+                        <li>미술관</li>
+                        <li>학군단</li>
+                        <li>체육관</li>
+                        <li>대운동장</li>
+                        <li>난파음악관</li>
+                        <li>평화의광장</li>
+                        <li>사회과학관</li>
+                        <li>제1공학관</li>
+                        <li>제2공학관</li>
+                        <li>제3공학관</li>
+                    </ul>
+                </div>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <div class="footer-links">
+                <a href="#">개인정보보호방침</a>
+                <a href="#">이메일무단수집거부</a>
+                <a href="#">대학정보공시</a>
+                <a href="#">교직원채용</a>
+                <a href="#">사이트맵</a>
+            </div>
+            <div class="footer-info">
+                죽전캠퍼스: 경기도 용인시 수지구 죽전로 152 (우) 16890<br>
+                <strong>통합콜센터 : 1899-3700</strong><br>
+                COPYRIGHT © 2015 BY DANKOOK UNIVERSITY ALL RIGHTS RESERVED
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        let slideIndex = 0;
+        showSlides();
+
+        function showSlides() {
+            let slides = document.querySelectorAll(".slides");
+            for (let i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            slideIndex++;
+            if (slideIndex > slides.length) {slideIndex = 1}
+            slides[slideIndex-1].style.display = "block";
+            setTimeout(showSlides, 5000); // 5초마다 슬라이드 전환
+        }
+    </script>
+</body>
+</html>

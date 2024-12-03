@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Orbis</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url(https://cdn.jsdelivr.net/gh/innks/NanumSquareRound@master/nanumsquareround.min.css);
+        @import url(https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css);
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Nanumsquareround, sans-serif;
+            min-height: 100vh;
+            background-color: rgba(240, 240, 240, 0.8); /* 배경색 변경 */
+            color: #34495e; /* 텍스트 색상 변경 */
+            font-weight: 700;
+        }
+
+        /* 기존 temp.html 스타일 유지 */
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2.5rem; /* contact_2.html의 헤더 패딩 */
+            background-color: #0B3C65; /* contact_2.html의 헤더 배경색 */
+            backdrop-filter: blur(10px); /* contact_2.html의 블러 효과 */
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* 그림자 */
+            border-bottom: 2px solid rgba(255, 255, 255, 0.15); /* 하단 경계선 */
+        }
+
+        .menu-toggle {
+            display: none;
+        }
+
+        .logo {
+            max-width: 120px;
+            height: auto;
+        }
+        
+        nav ul {
+            list-style-type: none;
+            display: flex;
+            gap: 2rem;
+        }
+        
+        nav a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 400;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: #f5f5f5;
+            transition: width 0.3s ease;
+        }
+        
+        nav a:hover, nav a.active {
+            color: #f5f5f5c4;
+        }
+        
+        nav a:hover::after, nav a.active::after {
+            width: 100%;
+        }
+        
+        .content {
+            flex-grow: 1;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            animation: fadeInUp 1s ease;
+        }
+        
+        h1, h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: #34495e; /* 텍스트 색상 변경 */
+        }
+        
+        p {
+            font-size: 1.2rem;
+            color: #34495e; /* 텍스트 색상 변경 */
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+       
+        .team-section, .our-service, .interactive-features {
+            margin-bottom: 3rem;
+        }
+        
+        .team-member {
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, #dbdbdb, #eeeeee);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            color: #03243f;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.07);
+        }
+        
+        .team-member:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .team-member img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin-right: 1.5rem;
+        }
+        
+        .member-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: #03243f;
+        }
+        
+        .interactive-features {
+            display: flex;
+            gap: 1.5rem;
+        }
+        
+        .interactive-card {
+            flex: 1;
+            background: linear-gradient(135deg, #dbdbdb, #eeeeee);
+            color: #03243f;
+            border-radius: 10px;
+            padding: 1.5rem;
+            transition: flex 0.3s ease, box-shadow 0.3s ease;
+            overflow: hidden;
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.07);
+        }
+        
+        .interactive-card:hover {
+            flex: 2;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .interactive-card h3 {
+            color: #03243f;
+        }
+        
+        .interactive-content {
+            opacity: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: opacity 0.3s ease, max-height 0.3s ease;
+        }
+        
+        .interactive-card:hover .interactive-content {
+            opacity: 1;
+            max-height: 200px;
+        }
+        
+        .interactive-content p {
+            color: #03243f;
+        }
+        .team-member p {
+            color: #03243f;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                align-items: flex-start;
+                margin-top: 1rem;
+            }
+            
+            .interactive-features {
+                flex-direction: column;
+            }
+            .menu-toggle {
+                display: block;
+                position: absolute;
+                top: 1rem;
+                right: 1rem;
+                background: none;
+                border: none;
+                color: #0B3C65;
+                font-size: 1.5rem;
+                cursor: pointer;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <a href="./main">
+                <img src="../static/img/logo_3.png" alt="Orbis Logo" class="logo">
+            </a>
+           
+            <button class="menu-toggle" aria-label="Toggle menu">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav>
+                <ul id="menu">
+                    <li><a href="./main">HOME</a></li>
+                    <li><a href="./about" class="active">ABOUT US</a></li>
+                    <li><a href="./list">TOUR</a></li>
+                </ul>
+            </nav>
+        </header>
+        
+        <main class="content">
+            <section class="our-service">
+                <h1>Our Services</h1>
+                <p>Orbis는 사용자가 원격으로 공간을 탐색하고 상호작용할 수 있도록 지원하는 직관적인 3D 뷰어 프로그램을 제공합니다. 우리의 플랫폼은 편리성, 효율성, 비용 절감 등 다양한 혜택을 통해 고객의 다양한 요구를 충족시키고자 합니다. 방문 계획, 일정 조율, 새로운 환경 탐색 등 다양한 상황에서 Orbis의 3D 뷰어가 제공하는 다음과 같은 기능들을 경험해보세요.</p>
+
+                <div class="interactive-features">
+                    <div class="interactive-card">
+                        <h3>🧑‍💻 편리성</h3>
+                        <div class="interactive-content">
+                            <p>3D 모델을 사용하면 실제 공간의 구조와 배치를 보다 직관적으로 파악할 수 있어 방문 전 미리 환경을 이해하는 데 매우 편리합니다.</p>
+                        </div>
+                    </div>
+                    <div class="interactive-card">
+                        <h3>⚡ 효율성</h3>
+                        <div class="interactive-content">
+                            <p>병원이나 학교의 시설을 3D로 시각화하면 관계자들 간의 의사소통이 더 원활해집니다.</p>
+                        </div>
+                    </div>
+                    <div class="interactive-card">
+                        <h3>🕑 시간과 비용 절감</h3>
+                        <div class="interactive-content">
+                            <p>3D로 공간을 탐색하면 물리적 방문 없이도 원하는 정보를 얻을 수 있어 시간과 비용을 절감할 수 있습니다.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+            <section class="our-technology">
+    <h2>Our Technology</h2>
+    <p>Orbis는 최신 360도 가상 투어 솔루션을 통해 사용자들에게 몰입감 있는 공간 경험을 제공합니다. 고해상도 360도 이미지를 다양한 기기에서 쉽게 탐색할 수 있으며, 반응형 설계를 통해 데스크탑, 모바일, 태블릿에서도 원활하게 작동합니다. 또한, 실감 나는 VR 모드와 더불어 인터랙티브 핫스팟 기능을 통해 사용자가 직접 공간을 탐색하고 특정 위치나 요소를 클릭하면 새로운 정보나 위치로 이동할 수 있어 더욱 직관적이고 풍부한 사용자 경험을 제공합니다.</p>
+</section>
+
+
+            <section class="team-section">
+                <h2>The Orbis Team</h2>
+                <div class="team-member">
+                    <img src="../static/img/person.png" alt="👤">
+                    <div class="member-info">
+                        <h3>윤태호</h3>
+                        <p>Team Leader</p>
+                        <p>서버와 프런트엔드 간의 통신 등 3D 뷰어 기술을 백엔드 시스템에 통합, 또한 전반적인 프로젝트 기획 및 조정에 기여</p>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <img src="../static/img/person.png" alt="👤">
+                    <div class="member-info">
+                        <h3>김승겸</h3>
+                        <p>Team Member</p>
+                        <p>다양한 산업의 웹사이트 디자인을 통해 아이덴티티 구축 및 UI/UX 구현, 프로트엔드 기술을 활용하여 반응형 디자인 구현</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script>
+        document.querySelector('.menu-toggle').addEventListener('click', function() {
+            document.getElementById('menu').classList.toggle('show');
+        });
+    </script>
+</body>
+</html>
